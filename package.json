@@ -1,6 +1,6 @@
 {
   "name": "fleasylog",
-  "version": "1.2",
+  "version": "1.2.0",
   "description": "A cool logger",
   "main": "index.js",
   "type": "module",
