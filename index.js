@@ -27,16 +27,16 @@ export default class Logger {
     func(chalk.rgb(this.colors[type][0],this.colors[type][1],this.colors[type][2])(`${this.getTimeStamp()} [${this.name}] [${type}] ${str.join(", ")}`))
   }
   debug(...str) {
-    this.custom(console.debug,"DEBUG",this.name,...str)
+    this.custom(console.debug,"DEBUG",...str)
   }
   log(...str) {
-    this.custom(console.log,"LOG",this.name,...str)
+    this.custom(console.log,"LOG",...str)
   }
   warn(...str) {
-    this.custom(console.warn,"WARN",this.name,...str) 
+    this.custom(console.warn,"WARN",...str) 
   }
   error(...str) {
-    this.custom(console.error,"ERROR",this.name,...str)
+    this.custom(console.error,"ERROR",...str)
   }
   fatal(...str) {
     custom(console.error,"FATAL",this.name,...str)
