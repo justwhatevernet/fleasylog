@@ -1,35 +1,44 @@
 import chalk from "chalk"
-const colors = {
-  "LOG":[255,255,255],
-  "WARN":[255, 145, 0],
-  "ERROR":[255, 60, 60],
-  "FATAL":[209, 15, 15],
-  "DEBUG":[50, 145, 250]
-}
-function getTimeStamp() {
-  let date = new Date()
-  return `[${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}]`
-}
-function custom(type,name,...str) {
-  console.log(chalk.rgb(colors[type][0],colors[type][1],colors[type][2])(`${getTimeStamp()} [${name}] [${type}] ${str.join(", ")}`))
-}
 export default class Logger {
-  constructor(name) {
+  colors = {
+    "LOG":[0,0,0],
+    "WARN":[255, 145, 0],
+    "ERROR":[255, 60, 60],
+    "FATAL":[209, 15, 15],
+    "DEBUG":[50, 145, 250]
+  }
+  darkColors = {
+    "LOG":[255,255,255]
+  }
+  constructor(name,darkMode) {
     this.name = name
+    if(darkMode) {
+      for (const key in this.darkColors) {
+        const element = this.darkColors[key];
+        this.colors[key] = element
+      }
+    }
+  }
+  getTimeStamp() {
+    let date = new Date()
+    return `[${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}]`
+  }
+  custom(func,type,...str) {
+    func(chalk.rgb(this.colors[type][0],this.colors[type][1],this.colors[type][2])(`${this.getTimeStamp()} [${this.name}] [${type}] ${str.join(", ")}`))
   }
   debug(...str) {
-    custom("DEBUG",this.name,...str)
+    custom(console.debug,"DEBUG",this.name,...str)
   }
   log(...str) {
-    custom("LOG",this.name,...str)
+    custom(console.log,"LOG",this.name,...str)
   }
   warn(...str) {
-    custom("WARN",this.name,...str) 
+    custom(console.warn,"WARN",this.name,...str) 
   }
   error(...str) {
-    custom("ERROR",this.name,...str)
+    custom(console.error,"ERROR",this.name,...str)
   }
   fatal(...str) {
-    custom("FATAL",this.name,...str)
+    custom(console.error,"FATAL",this.name,...str)
   }
 }
