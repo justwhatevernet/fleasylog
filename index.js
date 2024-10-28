@@ -39,6 +39,6 @@ export default class Logger {
     this.custom(console.error,"ERROR",...str)
   }
   fatal(...str) {
-    custom(console.error,"FATAL",this.name,...str)
+    this.custom(console.error,"FATAL",this.name,...str)
   }
 }
